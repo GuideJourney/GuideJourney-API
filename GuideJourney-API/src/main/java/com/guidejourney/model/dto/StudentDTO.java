@@ -1,8 +1,5 @@
 package com.guidejourney.model.dto;
 
-import java.sql.Blob;
-import java.util.List;
-
 import com.guidejourney.model.entities.Enum.Country;
 import com.guidejourney.model.entities.Enum.InterestArea;
 
@@ -11,17 +8,19 @@ import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class StudentDTO {
-
-    private Blob profilePicture;
+    @NotBlank
+    private String email;
 
     @NotBlank
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private Country country; 
- 
+    private Country country;
+
     private List<InterestArea> interestAreas;
 
     @NotBlank
@@ -29,5 +28,4 @@ public class StudentDTO {
 
     @NotBlank
     private String biography;
-
 }

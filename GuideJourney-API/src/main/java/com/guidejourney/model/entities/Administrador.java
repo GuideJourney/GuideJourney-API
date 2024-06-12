@@ -1,22 +1,23 @@
 package com.guidejourney.model.entities;
 
-import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@DiscriminatorValue("ADMIN")
 public class Administrador extends Profile {
 
-    private String email = "admin@gmail.com";
+    @Column(unique = true)
+    @Email
+    private String email = "adming@gmail.com";
 
-    private String password = "admin0024";
-
+    @Column(nullable = false)
+    private String password = "admin2024";
 }
 
 

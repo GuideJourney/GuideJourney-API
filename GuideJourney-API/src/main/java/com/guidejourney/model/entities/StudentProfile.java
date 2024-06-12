@@ -1,25 +1,21 @@
 package com.guidejourney.model.entities;
 
-import java.sql.Blob;
-import java.util.List;
-
 import com.guidejourney.exceptions.MaxInterestAreasExceededException;
 import com.guidejourney.model.entities.Enum.Country;
 import com.guidejourney.model.entities.Enum.InterestArea;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Blob;
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+@DiscriminatorValue("STUDENT")
 public class StudentProfile extends Profile {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     private Blob profilePicture;
     private String name;
 
@@ -34,12 +30,10 @@ public class StudentProfile extends Profile {
     @Column(name = "interest_area")
     private List<InterestArea> interestAreas;
 
-
     public void setInterestAreas(List<InterestArea> interestAreas) {
-    if (interestAreas.size() > 5) {
-        throw new MaxInterestAreasExceededException();
+        if (interestAreas.size() > 5) {
+            throw new MaxInterestAreasExceededException();
+        }
+        this.interestAreas = interestAreas;
     }
-    this.interestAreas = interestAreas;
-}
-
 }
