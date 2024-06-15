@@ -1,5 +1,7 @@
 package com.guidejourney.services;
 
+import com.guidejourney.exceptions.UserAlreadyExistsException;
+import com.guidejourney.mapper.UserMapper;
 import com.guidejourney.model.dto.LoginDTO;
 import com.guidejourney.model.entities.User;
 import com.guidejourney.repositories.UserRepository;
@@ -16,11 +18,15 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void registerUser(LoginDTO loginDTO) {
-        User user = new User();
-        user.setEmail(loginDTO.getEmail());
+    @Autowired
+    private UserMapper userMapper;
+
+    public User registerUser(LoginDTO loginDTO) throws UserAlreadyExistsException {
+        if (userRepository.existsByEmail(loginDTO.getEmail())) {
+            throw new UserAlreadyExistsException("User with email " + loginDTO.getEmail() + " already exists.");
+        }
+        User user = userMapper.loginDTOToUser(loginDTO);
         user.setPassword(passwordEncoder.encode(loginDTO.getPassword()));
-        // Aquí puedes configurar cualquier otro valor predeterminado, como el rol básico de usuario
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 }

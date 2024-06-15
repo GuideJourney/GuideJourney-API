@@ -1,6 +1,5 @@
-package com.guidejourney.model.entities.Enum;
+package com.guidejourney.model.enums;
 
 public enum Rol {
     ESTUDIANTE, MENTOR, ADMINISTRADOR
 }
-

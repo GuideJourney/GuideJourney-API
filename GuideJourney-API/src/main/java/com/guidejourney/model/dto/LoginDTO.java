@@ -15,5 +15,4 @@ public class LoginDTO {
     @NotBlank
     @Size(min = 8)
     private String password;
-
 }

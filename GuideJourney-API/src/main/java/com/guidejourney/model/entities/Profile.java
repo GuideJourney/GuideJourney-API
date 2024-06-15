@@ -1,6 +1,6 @@
 package com.guidejourney.model.entities;
 
-import com.guidejourney.model.entities.Enum.Rol;
+import com.guidejourney.model.enums.Rol;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,4 +19,3 @@ public abstract class Profile {
     @Column(nullable = false)
     private Rol rol;
 }
-
