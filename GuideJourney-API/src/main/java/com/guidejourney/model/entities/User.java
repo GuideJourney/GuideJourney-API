@@ -27,5 +27,5 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
-    private Profile profile;  // Asegúrate de que esta línea esté correcta
+    private Profile profile;
 }
