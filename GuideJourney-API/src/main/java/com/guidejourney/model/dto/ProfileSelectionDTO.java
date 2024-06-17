@@ -9,5 +9,5 @@ public class ProfileSelectionDTO {
     private String email;
 
     @NotBlank
-    private String profileType; // "STUDENT" or "MENTOR"
+    private String profileType; 
 }
