@@ -4,6 +4,7 @@ import com.guidejourney.exceptions.UserNotFoundException;
 import com.guidejourney.exceptions.InvalidProfileTypeException;
 import com.guidejourney.model.dto.ProfileSelectionDTO;
 import com.guidejourney.model.dto.StudentDTO;
+import com.guidejourney.model.dto.StudentInterestDTO;
 import com.guidejourney.model.entities.User;
 import com.guidejourney.services.ProfileService;
 
@@ -38,6 +39,19 @@ public class ProfileController {
     public ResponseEntity<User> updateStudentProfileBasicInfo(@RequestBody StudentDTO studentDTO) {
         try {
             User updatedUser = profileService.updateStudentProfileBasicInfo(studentDTO);
+            updatedUser.setPassword(null);  // Para no devolver la contraseña
+            return ResponseEntity.ok(updatedUser);
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+    @PutMapping("/student/interests")
+    public ResponseEntity<User> updateStudentInterests(@RequestBody StudentInterestDTO studentInterestDTO) {
+        try {
+            User updatedUser = profileService.updateStudentInterests(studentInterestDTO);
             updatedUser.setPassword(null);  // Para no devolver la contraseña
             return ResponseEntity.ok(updatedUser);
         } catch (UserNotFoundException e) {

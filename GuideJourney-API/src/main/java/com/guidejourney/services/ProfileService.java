@@ -4,6 +4,7 @@ import com.guidejourney.exceptions.InvalidProfileTypeException;
 import com.guidejourney.exceptions.UserNotFoundException;
 import com.guidejourney.model.dto.ProfileSelectionDTO;
 import com.guidejourney.model.dto.StudentDTO;
+import com.guidejourney.model.dto.StudentInterestDTO;
 import com.guidejourney.model.entities.StudentProfile;
 import com.guidejourney.model.entities.MentorProfile;
 import com.guidejourney.model.entities.User;
@@ -48,6 +49,19 @@ public class ProfileService {
             studentProfile.setCountry(studentDTO.getCountry());
             studentProfile.setCompanyOrSchool(studentDTO.getCompanyOrSchool());
             studentProfile.setBiography(studentDTO.getBiography());
+            return userRepository.save(user);
+        } else {
+            throw new IllegalArgumentException("Profile is not of type STUDENT");
+        }
+    }
+
+    public User updateStudentInterests(StudentInterestDTO studentInterestDTO) throws UserNotFoundException {
+        User user = userRepository.findByEmail(studentInterestDTO.getEmail())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        if (user.getProfile() instanceof StudentProfile) {
+            StudentProfile studentProfile = (StudentProfile) user.getProfile();
+            studentProfile.setInterestAreas(studentInterestDTO.getInterestAreas());
             return userRepository.save(user);
         } else {
             throw new IllegalArgumentException("Profile is not of type STUDENT");

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.guidejourney.exceptions.InvalidProfileTypeException;
 import com.guidejourney.exceptions.UserNotFoundException;
 import com.guidejourney.exceptions.UserAlreadyExistsException;
+import com.guidejourney.exceptions.MaxInterestAreasExceededException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -27,8 +28,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGenericException(Exception ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    @ExceptionHandler(MaxInterestAreasExceededException.class)
+    public ResponseEntity<String> handleMaxInterestAreasExceededException(MaxInterestAreasExceededException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
